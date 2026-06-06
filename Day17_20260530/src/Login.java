@@ -17,7 +17,6 @@ public class Login {
 
     }
 
-
     /**
      * @Description: 登录
      * @Param: [acc, password]
@@ -56,7 +55,6 @@ public class Login {
             e.printStackTrace();
         } finally {
             //7.释放资源  自下而上
-
             try {
                 if (rs != null) {
                     rs.close();
@@ -64,8 +62,6 @@ public class Login {
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
-
-
             try {
                 if (ps != null) {
                     ps.close();
@@ -73,8 +69,6 @@ public class Login {
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
-
-
             try {
                 if (conn != null) {
                     conn.close();
