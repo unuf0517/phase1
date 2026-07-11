@@ -1,16 +1,29 @@
-import java.sql.*;
+package EnrollAndLogin;
+
+import model.Palyer.HitmouseDO;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Scanner;
+
+import static controller.DBUtil.driver;
+import static controller.DBUtil.pwd;
+import static controller.DBUtil.root;
+import static controller.DBUtil.url;
 
 public class Login {
     public static void main(String[] args) throws Exception {
         Scanner sc=new Scanner(System.in);
-        String acc = "xiaoli";
-        String pwd = "111111";
+        String acc = sc.next();
+        String pwd = sc.next();
 
-        UserDO userDO = login(acc, pwd);
+        HitmouseDO hitmouseDO = login(acc, pwd);
 
-        if (userDO != null) {
-            System.out.println("欢迎管理员: " + userDO.getName());
+        if (hitmouseDO != null) {
+            System.out.println("欢迎管理员: " + hitmouseDO.getName());
         } else {
             System.out.println("登录失败");
         }
@@ -23,34 +36,25 @@ public class Login {
      * @Param: [acc, password]
      * @return: void
      */
-    public static UserDO login(String acc, String pwd) {
+    public static HitmouseDO login(String acc, String pw) {
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
-            //2.加载驱动
-            Class.forName("com.mysql.cj.jdbc.Driver");
-
-            //3.建立连接
-            // jdbc:mysql://ip:端口/数据库名称
+            Class.forName(driver);
             conn = DriverManager.getConnection(
-                    "jdbc:mysql://127.0.0.1:3306/oto2603",
-                    "root",
-                    "root");
+                    url,
+                    root,
+                    pwd);
 
-            //5.写sql
             String sql = "select * from user where account = ? and password = ?";
-
-            //4.创建执行者对象
             ps = conn.prepareStatement(sql);
             ps.setString(1, acc);
-            ps.setString(2, pwd);
-
-            //6.执行sql ，并处理返回结果
+            ps.setString(2, pw);
             rs = ps.executeQuery();
 
             if (rs.next()) {
-                return new UserDO(rs.getString("name"), rs.getString("gender"), rs.getString("create_time"));
+                return new HitmouseDO(rs.getLong("id"), rs.getString("name"), rs.getString("account"), rs.getString("password"));
             }
         } catch (Exception e) {
             e.printStackTrace();

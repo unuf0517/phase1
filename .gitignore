@@ -33,3 +33,5 @@ bin/
 
 *.jar
 !lib/
+
+.claude/

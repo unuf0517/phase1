@@ -1,4 +1,8 @@
-package PACKAGE_NAME;
+import javax.swing.*;
 
-public class MyPanel {
+public class MyPanel extends JPanel {
+    public MyPanel(){
+        JLabel label=new JLabel("用户名");
+        add(label);
+    }
 }
