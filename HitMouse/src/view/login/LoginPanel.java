@@ -2,8 +2,8 @@ package view.login;
 
 
 import controller.GameController;
+import controller.action.LoginActionLis;
 import controller.mouse.CodeMouseLis;
-import controller.mouse.LoginMouseLis;
 
 import javax.swing.*;
 import java.awt.*;
@@ -28,7 +28,7 @@ public class LoginPanel extends JPanel {
     //登录按钮
     private JButton loginBtn = new JButton("登录");
     //注册按钮
-    private JButton enrollBtn = new JButton("去注册");
+    private JButton enrollBtn = new JButton("注册");
 
     private GameController gameController;
 
@@ -125,9 +125,11 @@ public class LoginPanel extends JPanel {
          * */
         loginBtn.setBounds(70, 300, 100, 40);
         loginBtn.setFont(FONT);
-        //创建鼠标监听器
-        LoginMouseLis loginMouseLis = new LoginMouseLis(gameController);
-        loginBtn.addMouseListener(loginMouseLis);
+
+//        //创建鼠标监听器
+//        LoginMouseLis loginMouseLis = new LoginMouseLis(gameController);
+//        loginBtn.addMouseListener(loginMouseLis);
+
         add(loginBtn);
 
         /*
@@ -136,6 +138,15 @@ public class LoginPanel extends JPanel {
         enrollBtn.setBounds(250, 300, 100, 40);
         enrollBtn.setFont(FONT);
         add(enrollBtn);
+
+        //实例化动作监听
+        LoginActionLis loginActionLis = new LoginActionLis();
+        //添加登录按钮动作监听
+        loginBtn.addActionListener(loginActionLis);
+        loginBtn.setActionCommand("loginBtn");
+        //添加注册按钮动作监听
+        enrollBtn.addActionListener(loginActionLis);
+        enrollBtn.setActionCommand("enrollBtn");
     }
 
     /**

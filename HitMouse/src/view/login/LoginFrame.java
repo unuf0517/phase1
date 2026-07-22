@@ -2,6 +2,7 @@ package view.login;
 
 
 import controller.GameController;
+import controller.win.WindowLis;
 import view.GameUI;
 
 import javax.swing.*;
@@ -19,6 +20,11 @@ public class LoginFrame extends JFrame {
         this.gameController=gameController;
         //初始化页面
         initFrame();
+
+        //实例化窗口监听
+        WindowLis windowLis = new WindowLis();
+        //窗口添加监听
+        addWindowListener(windowLis);
 
         //页面可视化
         setVisible(true);
@@ -39,7 +45,7 @@ public class LoginFrame extends JFrame {
         //窗口居中
         setLocationRelativeTo(null);
         //设置窗口关闭操作
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         /*
          * DO_NOTHING_ON_CLOSE   点击关闭时不做任何操作，自定义操作
          * HIDE_ON_CLOSE         点击关闭时隐藏窗口  (默认)

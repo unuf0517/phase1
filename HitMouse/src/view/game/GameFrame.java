@@ -1,6 +1,9 @@
 package view.game;
 
 
+import controller.action.MenuActionLis;
+import controller.win.WindowLis;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -37,6 +40,11 @@ public class GameFrame extends JFrame {
         //初始化菜单
         initMenu();
 
+        //实例化窗口监听
+        WindowLis windowLis = new WindowLis();
+        //窗口添加监听
+        addWindowListener(windowLis);
+
         //页面可视化
         setVisible(false);
     }
@@ -59,6 +67,24 @@ public class GameFrame extends JFrame {
         JMenuItem exitItem = new JMenuItem("退出登录");
         JMenuItem writerItem = new JMenuItem("关于作者");
         JMenuItem aboutGameItem = new JMenuItem("关于游戏");
+
+        //实例化动作监听
+        MenuActionLis menuActionLis = new MenuActionLis();
+        //菜单设置动作指令
+        startItem.setActionCommand("start");
+        stopItem.setActionCommand("stop");
+        restartItem.setActionCommand("restart");
+        exitItem.setActionCommand("exit");
+        writerItem.setActionCommand("writer");
+        aboutGameItem.setActionCommand("aboutGame");
+        //菜单子项添加动作监听
+        startItem.addActionListener(menuActionLis);
+        stopItem.addActionListener(menuActionLis);
+        restartItem.addActionListener(menuActionLis);
+        exitItem.addActionListener(menuActionLis);
+        writerItem.addActionListener(menuActionLis);
+        aboutGameItem.addActionListener(menuActionLis);
+
         //菜单添加菜单项
         operationMenu.add(startItem);
         operationMenu.add(stopItem);
@@ -90,7 +116,7 @@ public class GameFrame extends JFrame {
         //设置窗口居中
         setLocationRelativeTo(null);
         //设置窗口关闭操作
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 
         //创建中心面板实例
         gameCenterPanel = new GameCenterPanel();

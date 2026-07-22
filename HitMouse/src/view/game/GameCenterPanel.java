@@ -3,6 +3,7 @@ package view.game;
 
 import controller.GameController;
 import controller.Mouse;
+import controller.mouse.GameMouseLis;
 
 import javax.swing.*;
 import java.awt.*;
@@ -23,7 +24,10 @@ public class GameCenterPanel extends JPanel {
      * @return: null
      */
     public GameCenterPanel() {
-
+        //实例化鼠标监听
+        GameMouseLis gameMouseLis = new GameMouseLis();
+        //添加鼠标监听器
+        addMouseListener(gameMouseLis);
     }
 
     /**
@@ -40,7 +44,10 @@ public class GameCenterPanel extends JPanel {
         g.drawImage(backgroundImage, 0, 0, 455, 450, null);
 
         Mouse mouse= GameController.getInstance().getMouse();
-        g.drawImage(mouse.getMouseImage(), mouse.getMouseX(), mouse.getMouseY(), mouse.getMouseWidth(), mouse.getMouseHeight(), null);
+        if(mouse.getMouseX()!=0 && mouse.getMouseY()!=0){
+            g.drawImage(mouse.getMouseImage(), mouse.getMouseX(), mouse.getMouseY(), mouse.getMouseWidth(), mouse.getMouseHeight(), null);
+
+        }
 
 
 /*

@@ -1,6 +1,8 @@
 package view.enroll;
 
 
+import controller.action.EnrollActionLis;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -33,8 +35,8 @@ public class EnrollPanel extends JPanel {
     private JPasswordField confirmPasswordTextField = new JPasswordField();
     //注册按钮
     private JButton enrollBtn = new JButton("注册");
-    //去登录按钮
-    private JButton loginBtn = new JButton("去登录");
+    //登录按钮
+    private JButton loginBtn = new JButton("登录");
 
 
 
@@ -141,6 +143,16 @@ public class EnrollPanel extends JPanel {
         loginBtn.setBounds(250, 300, 100, 40);
         loginBtn.setFont(FONT);
         add(loginBtn);
+
+        //实例化动作监听
+        EnrollActionLis enrollActionLis=new EnrollActionLis();
+        //注册按钮添加动作监听
+        enrollBtn.addActionListener(enrollActionLis);
+        enrollBtn.setActionCommand("enrollBtn");
+        //登录按钮添加动作监听
+        loginBtn.addActionListener(enrollActionLis);
+        loginBtn.setActionCommand("loginBtn");
+
     }
 
     public Font getFONT() {

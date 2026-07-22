@@ -1,0 +1,53 @@
+package controller.action;
+
+import controller.GameController;
+import model.Palyer.HitmouseDO;
+import view.GameUI;
+
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class LoginActionLis implements ActionListener {
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        switch(e.getActionCommand()){
+            case "loginBtn":
+                String account= GameUI.loginFrame.getLoginPanel().getAccountTextField().getText();
+                String password=new String(GameUI.loginFrame.getLoginPanel().getPasswordTextField().getPassword());
+                String code=GameUI.loginFrame.getLoginPanel().getCodeTextField().getText();
+
+                if(account.equals("") || password.equals("") || code.equals("")){
+                    JOptionPane.showMessageDialog(null,"请填写完整数据","温馨提示",JOptionPane.PLAIN_MESSAGE);
+                    return;
+                }
+
+                //判断验证码是否正确
+                //获取用户输入的验证码
+                String showCode=GameUI.loginFrame.getLoginPanel().getShowCodeLabel().getText();
+                if(!showCode.equalsIgnoreCase(code)){
+                    JOptionPane.showMessageDialog(null,"验证码错误","温馨提示",JOptionPane.PLAIN_MESSAGE);
+                    return;
+                }
+
+                HitmouseDO hitmouseDO = GameController.login(account, password);
+
+                if (hitmouseDO != null) {
+
+                    JOptionPane.showMessageDialog(null,"登陆成功","温馨提示",JOptionPane.PLAIN_MESSAGE);
+
+                    //页面跳转  关闭登录页面  开启游戏页面
+                    GameUI.loginFrame.setVisible(false);
+                    GameUI.gameFrame.setVisible(true);
+                } else {
+                    JOptionPane.showMessageDialog(null,"登陆失败","温馨提示",JOptionPane.ERROR_MESSAGE);
+                }
+                break;
+            case "enrollBtn":
+                GameUI.loginFrame.setVisible(false);
+                GameUI.enrollFrame.setVisible(true);
+                break;
+        }
+    }
+}
+

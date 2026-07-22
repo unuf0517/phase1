@@ -14,7 +14,20 @@ public class Mouse {
     public Mouse(){
         mouseHeight=69;
         mouseWidth=59;
-        mouseImage=new ImageIcon("HitMouse/src/imagesM/dishu.png").getImage();
+        mouseImageToStatus();
+    }
+
+    /**
+     * @description: 根据鼠标状态设置图片
+     */
+    public void mouseImageToStatus(){
+        if(mouseStatus){
+            //打中
+            mouseImage=new ImageIcon("HitMouse/src/imagesM/datou.png").getImage();
+        }else{
+            //未打中
+            mouseImage=new ImageIcon("HitMouse/src/imagesM/dishu.png").getImage();
+        }
     }
 
     public int getMouseX() {
